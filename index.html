@@ -211,7 +211,7 @@
       border-radius: 50%;
       object-fit: cover;
       object-position: center top;
-      transform: scale(1.1);
+      transform: scale(1.4) translateX(-6%);
       border: 3px solid var(--accent);
       filter: grayscale(20%);
     }
@@ -793,5 +793,9 @@
   <div class="footer-copy">© 2026 Zac Norton. All rights reserved.</div>
 </div>
 
+<script>
+  if (history.scrollRestoration) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+</script>
 </body>
 </html>
