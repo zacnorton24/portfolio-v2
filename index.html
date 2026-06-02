@@ -82,12 +82,16 @@
       overflow: hidden;
     }
 
-    /* subtle animated background texture */
+    /* skyline background */
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(79,195,247,0.06) 0%, transparent 70%);
+      background-image: url('skyline.jpg');
+      background-size: cover;
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      opacity: 0.08;
       pointer-events: none;
     }
 
