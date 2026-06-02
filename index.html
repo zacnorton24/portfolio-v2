@@ -795,9 +795,9 @@
 
 <script>
   if (history.scrollRestoration) history.scrollRestoration = 'manual';
+  if (window.location.hash) history.replaceState(null, '', window.location.pathname);
   window.scrollTo(0, 0);
   window.addEventListener('load', function() { window.scrollTo(0, 0); });
-  document.addEventListener('DOMContentLoaded', function() { window.scrollTo(0, 0); });
 </script>
 </body>
 </html>
