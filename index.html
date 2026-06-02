@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zac Norton | Portfolio</title>
+  <meta name="description" content="Operations & Supply Chain Management student at East Carolina University." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --card: #161b22;
+      --card2: #1c2230;
+      --border: #2d3748;
+      --accent: #4fc3f7;
+      --accent-dim: #38a3c9;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --radius: 12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* ── MENU BAR ── */
+    .menubar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 60px;
+    }
+
+    .menu-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--text);
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .menu-label .hamburger { display: flex; flex-direction: column; gap: 5px; }
+    .menu-label .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+
+    .menu-links {
+      display: flex;
+      gap: 32px;
+    }
+    .menu-links a {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .menu-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 40px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle animated background texture */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(79,195,247,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-name {
+      font-size: clamp(4rem, 14vw, 12rem);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      text-transform: uppercase;
+      animation: heroFadeUp 1s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .hero-sub {
+      margin-top: 28px;
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 520px;
+      animation: heroFadeUp 1s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+    }
+
+    .hero-cta {
+      margin-top: 48px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: heroFadeUp 1s cubic-bezier(0.22,1,0.36,1) 0.4s both;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 14px 36px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .cta-btn:hover { background: var(--accent); color: var(--bg); }
+    .cta-btn.filled { background: var(--accent); color: var(--bg); }
+    .cta-btn.filled:hover { background: var(--accent-dim); border-color: var(--accent-dim); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: bounce 2s infinite;
+    }
+    .hero-scroll span { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .hero-scroll .arrow { font-size: 1.2rem; color: var(--accent); }
+
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      width: 60px;
+      height: 2px;
+      background: var(--accent);
+      margin: 0 auto 40px;
+    }
+
+    /* ── SECTIONS ── */
+    .page-section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 100px 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .section-heading {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1;
+      text-transform: uppercase;
+      margin-bottom: 48px;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-photo {
+      display: flex;
+      justify-content: center;
+    }
+    .about-photo img {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      transform: scale(1.1);
+      border: 3px solid var(--accent);
+      filter: grayscale(20%);
+    }
+    .about-text p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .about-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .stat { display: flex; flex-direction: column; gap: 4px; }
+    .stat-value { font-size: 2rem; font-weight: 900; color: var(--accent); line-height: 1; }
+    .stat-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; gap: 2px; }
+
+    .exp-item {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 40px;
+      cursor: default;
+      transition: background 0.2s;
+    }
+    .exp-item:last-child { border-bottom: 1px solid var(--border); }
+
+    .exp-meta { display: flex; flex-direction: column; gap: 6px; padding-top: 4px; }
+    .exp-company-name { font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; }
+    .exp-date-tag { font-size: 0.72rem; color: var(--muted); }
+    .current-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-right: 6px; animation: pulse 2s infinite; }
+
+    .exp-body {}
+    .exp-role { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; }
+    .exp-desc-text { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 16px; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .exp-bullets li { color: var(--text); font-size: 0.86rem; line-height: 1.6; padding-left: 16px; position: relative; }
+    .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 4px 10px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── LEADERSHIP ── */
+    .leadership-grid { display: flex; flex-direction: column; gap: 16px; }
+
+    .leadership-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .leadership-item.featured {
+      border-color: var(--accent);
+      background: var(--card2);
+    }
+    .leadership-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .leadership-org { font-size: 0.82rem; color: var(--accent); }
+    .leadership-date { font-size: 0.75rem; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+
+    .initiative-detail {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .initiative-desc { color: var(--muted); font-size: 0.86rem; line-height: 1.7; margin-bottom: 16px; }
+    .phase-list { display: flex; flex-direction: column; gap: 10px; }
+    .phase {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: 0.85rem;
+    }
+    .phase-n {
+      background: var(--accent);
+      color: var(--bg);
+      border-radius: 50%;
+      width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .phase-t { color: var(--text); line-height: 1.5; }
+    .phase-t span { color: var(--muted); }
+
+    /* ── EDUCATION ── */
+    .edu-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 16px;
+    }
+    .edu-school-name { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
+    .edu-deg { color: var(--accent); font-size: 0.92rem; margin-bottom: 20px; }
+    .edu-facts { display: flex; flex-wrap: wrap; gap: 32px; margin-bottom: 24px; }
+    .edu-fact-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 4px; }
+    .edu-fact-val { font-size: 1rem; font-weight: 700; }
+    .edu-section-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 700; margin-bottom: 10px; }
+    .edu-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .edu-list li { font-size: 0.86rem; color: var(--text); padding-left: 16px; position: relative; line-height: 1.5; }
+    .edu-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+
+    /* ── CREDENTIALS ── */
+    .cred-grid { display: flex; flex-direction: column; gap: 12px; }
+    .cred-row {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .cred-ico { font-size: 1.5rem; }
+    .cred-n { font-size: 0.92rem; font-weight: 700; margin-bottom: 2px; }
+    .cred-o { color: var(--accent); font-size: 0.78rem; }
+    .cred-b { margin-left: auto; background: #1a3a2a; border: 1px solid #2d6a4f; color: #52b788; border-radius: 6px; padding: 3px 10px; font-size: 0.7rem; font-weight: 600; white-space: nowrap; }
+
+    /* ── SKILLS ── */
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .skills-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .skills-block-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 14px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag {
+      background: #1e2a3a;
+      border: 1px solid #2d4a6b;
+      color: var(--text);
+      border-radius: 4px;
+      padding: 5px 12px;
+      font-size: 0.78rem;
+    }
+
+    /* ── CONTACT / FOOTER ── */
+    .contact-section {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 100px 40px 80px;
+    }
+    .contact-heading {
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 32px;
+      letter-spacing: -0.02em;
+    }
+    .contact-links {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .contact-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .contact-links a:hover { color: var(--accent); }
+    .footer-copy { color: var(--muted); font-size: 0.75rem; margin-top: 48px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .menubar { padding: 0 20px; }
+      .menu-links { display: none; }
+      .hero { padding: 80px 24px 60px; }
+      .page-section { padding: 70px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 36px; }
+      .about-photo img { width: 180px; height: 180px; }
+      .exp-item { grid-template-columns: 1fr; gap: 8px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .contact-section { padding: 70px 24px 60px; }
+    }
+  </style>
+</head>
+<body id="top">
+
+<!-- MENU BAR -->
+<div class="menubar">
+  <a class="menu-label" href="#top" style="text-decoration:none;">
+    ⌂ Home
+  </a>
+  <div class="menu-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#leadership">Leadership</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-name">Zac Norton</div>
+  <div class="hero-sub">
+    Operations &amp; Supply Chain Management student at East Carolina University.<br>
+    Former Division I student-athlete. Supply Chain intern at Ford Australia.
+  </div>
+  <div class="hero-cta">
+    <a class="cta-btn filled" href="resume.pdf" target="_blank">View Resume</a>
+    <a class="cta-btn" href="#experience" onclick="document.getElementById('experience').scrollIntoView({behavior:'smooth'});return false;">See My Work</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="arrow">↓</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="page-section" id="about">
+  <div class="section-label">Who I Am</div>
+  <div class="section-heading">About</div>
+  <div class="about-grid">
+    <div class="about-photo">
+      <img src="profile.png" alt="Zac Norton" />
+    </div>
+    <div class="about-text">
+      <p>
+        Operations and Supply Chain Management student at East Carolina University with a 3.84 GPA.
+        Division I full-scholarship student-athlete competing in Track &amp; Cross Country.
+      </p>
+      <p>
+        I'm interested in how businesses move — how supply chains are optimized, and how data-driven
+        decisions reduce waste and improve performance. Currently interning with Active Supply Chains
+        on Ford Australia projects.
+      </p>
+      <p>Open to full-time opportunities starting May 2027.</p>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-value">3.84</div>
+          <div class="stat-label">GPA / 4.0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">D1</div>
+          <div class="stat-label">Former Student-Athlete</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">2027</div>
+          <div class="stat-label">Graduating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="page-section" id="experience">
+  <div class="section-label">Work History</div>
+  <div class="section-heading">Experience</div>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-company-name">Active Supply Chains · Ford Australia</div>
+        <div class="exp-date-tag"><span class="current-dot"></span>Current</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Supply Chain Intern</div>
+        <div class="exp-desc-text">Supporting supply chain operations and analysis as part of a structured internship program, working on Ford Australia–related projects.</div>
+        <div class="tag-row">
+          <span class="tag">Supply Chain</span>
+          <span class="tag">Operations</span>
+          <span class="tag">Analysis</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-company-name">Norton Ford</div>
+        <div class="exp-date-tag">Jan 2024 – Aug 2024</div>
+        <div class="exp-date-tag" style="margin-top:2px;font-size:0.68rem;">Warrnambool, Australia</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Ford Service Advisor</div>
+        <div class="exp-desc-text">Advised and assisted customers in scheduling vehicle services and repairs, coordinating across service and technical teams.</div>
+        <ul class="exp-bullets">
+          <li>Advised 30+ customers daily in scheduling vehicle services and repairs</li>
+          <li>Coordinated with technicians to ensure accurate diagnostics and timely completion</li>
+          <li>Resolved customer concerns, contributing to a 96% customer satisfaction rate</li>
+          <li>Maintained service records, warranty claims, and compliance with dealership standards</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">Customer Service</span>
+          <span class="tag">Process Coordination</span>
+          <span class="tag">Compliance</span>
+          <span class="tag">Automotive</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-company-name">Crown</div>
+        <div class="exp-date-tag">Feb 2022 – Aug 2024</div>
+        <div class="exp-date-tag" style="margin-top:2px;font-size:0.68rem;">Melbourne, Australia</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Food &amp; Beverage Attendant</div>
+        <div class="exp-desc-text">Delivered 5-star hospitality across high-volume events and intimate functions at one of Australia's premier entertainment destinations.</div>
+        <ul class="exp-bullets">
+          <li>Catered events from intimate meetings to functions of over 1,000 guests</li>
+          <li>Helped maintain Crown's 5-Star status through exceptional guest experiences</li>
+          <li>Served as Dietary Leader — ensuring all dietary requirements were correctly maintained</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">Hospitality</span>
+          <span class="tag">Event Operations</span>
+          <span class="tag">Leadership</span>
+          <span class="tag">Guest Relations</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section class="page-section" id="leadership">
+  <div class="section-label">Impact &amp; Recognition</div>
+  <div class="section-heading">Leadership</div>
+  <div class="leadership-grid">
+
+    <div class="leadership-item featured">
+      <div style="flex:1;">
+        <div class="leadership-title">Institute of Supply Chain Management — President</div>
+        <div class="leadership-org">East Carolina University</div>
+        <div class="initiative-detail">
+          <div class="initiative-desc">
+            Leading a first-of-its-kind initiative to bring Lean Six Sigma Green Belt certification to ECU's College of Business.
+            When I took over as President in May, this had been written off as near-impossible. Within 24 hours I was in a meeting
+            with the SGA President outlining the vision. We are now executing a deliberate, data-driven path to make it happen —
+            and when we do, every future ECU College of Business student will have access to a certification most graduates won't have.
+          </div>
+          <div class="edu-section-label" style="margin-bottom:10px;">Roadmap</div>
+          <div class="phase-list">
+            <div class="phase">
+              <div class="phase-n">1</div>
+              <div class="phase-t">Drive 50 students to complete the <strong>free White Belt course</strong> — proving demand. <span>Active now: relentless social media push across the college.</span></div>
+            </div>
+            <div class="phase">
+              <div class="phase-n">2</div>
+              <div class="phase-t">Use participation data to build a <strong>numerical case for funding</strong> with university stakeholders.</div>
+            </div>
+            <div class="phase">
+              <div class="phase-n">3</div>
+              <div class="phase-t">Secure funding and launch the <strong>Green Belt program</strong> — a college-wide certification pathway for all ECU business students.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="leadership-date"><span class="current-dot"></span>Current</div>
+    </div>
+
+    <div class="leadership-item">
+      <div>
+        <div class="leadership-title">Division I Full-Scholarship Student-Athlete</div>
+        <div class="leadership-org">ECU Track &amp; Cross Country</div>
+      </div>
+      <div class="leadership-date">Fall 2024 – Present</div>
+    </div>
+
+    <div class="leadership-item">
+      <div>
+        <div class="leadership-title">Chi Alpha Sigma — National Athlete Honor Society</div>
+        <div class="leadership-org">East Carolina University</div>
+      </div>
+      <div class="leadership-date">Fall 2026 – Present</div>
+    </div>
+
+    <div class="leadership-item">
+      <div>
+        <div class="leadership-title">Beta Gamma Sigma — Business Honor Society</div>
+        <div class="leadership-org">East Carolina University</div>
+      </div>
+      <div class="leadership-date">Fall 2025 – Present</div>
+    </div>
+
+    <div class="leadership-item">
+      <div>
+        <div class="leadership-title">Institute of Supply Chain Management — VP of Membership</div>
+        <div class="leadership-org">East Carolina University</div>
+      </div>
+      <div class="leadership-date">Fall 2025 – Spring 2026</div>
+    </div>
+
+    <div class="leadership-item">
+      <div>
+        <div class="leadership-title">Chancellor's List</div>
+        <div class="leadership-org">East Carolina University</div>
+      </div>
+      <div class="leadership-date">Fall 2025</div>
+    </div>
+
+    <div class="leadership-item">
+      <div>
+        <div class="leadership-title">Dean's List</div>
+        <div class="leadership-org">East Carolina University</div>
+      </div>
+      <div class="leadership-date">Fall 2024, Spring 2025</div>
+    </div>
+
+    <div class="leadership-item">
+      <div>
+        <div class="leadership-title">South Atlantic Conference Honor Roll</div>
+        <div class="leadership-org">Wingate University</div>
+      </div>
+      <div class="leadership-date">Fall 2022, Spring 2023</div>
+    </div>
+
+    <div class="leadership-item">
+      <div>
+        <div class="leadership-title">Australian Olympic Change Maker Nominee</div>
+        <div class="leadership-org">Australian Olympic Committee</div>
+      </div>
+      <div class="leadership-date">Fall 2021</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="page-section" id="education">
+  <div class="section-label">Academic Background</div>
+  <div class="section-heading">Education</div>
+  <div class="edu-block">
+    <div class="edu-school-name">East Carolina University College of Business</div>
+    <div class="edu-deg">Bachelor of Science in Business Administration — Operations &amp; Supply Chain Management</div>
+    <div class="edu-facts">
+      <div>
+        <div class="edu-fact-label">Graduation</div>
+        <div class="edu-fact-val">May 2027</div>
+      </div>
+      <div>
+        <div class="edu-fact-label">GPA</div>
+        <div class="edu-fact-val">3.84 / 4.0</div>
+      </div>
+      <div>
+        <div class="edu-fact-label">Location</div>
+        <div class="edu-fact-val">Greenville, NC</div>
+      </div>
+    </div>
+    <div class="edu-section-label">Honors</div>
+    <ul class="edu-list" style="margin-bottom:20px;">
+      <li>Chancellor's List — Fall 2025</li>
+      <li>Dean's List — Fall 2024, Spring 2025</li>
+      <li>Beta Gamma Sigma Business Honor Society — Fall 2025</li>
+      <li>Chi Alpha Sigma National Athlete Honor Society — Fall 2026</li>
+    </ul>
+    <div class="edu-section-label">Athletics</div>
+    <ul class="edu-list">
+      <li>Division I Full-Scholarship Student-Athlete — ECU Track &amp; Cross Country (Fall 2024 – Present)</li>
+      <li>South Atlantic Conference Honor Roll — Wingate University (Fall 2022, Spring 2023)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section class="page-section" id="credentials">
+  <div class="section-label">Verified</div>
+  <div class="section-heading">Credentials</div>
+  <div class="cred-grid">
+    <div class="cred-row">
+      <div class="cred-ico">📊</div>
+      <div><div class="cred-n">Pearson Excel Comprehensive Badge</div><div class="cred-o">Pearson Education</div></div>
+      <div class="cred-b">Verified</div>
+    </div>
+    <div class="cred-row">
+      <div class="cred-ico">⚙️</div>
+      <div><div class="cred-n">Lean Six Sigma — White Belt</div><div class="cred-o">Six Sigma Certification</div></div>
+      <div class="cred-b">Verified</div>
+    </div>
+    <div class="cred-row">
+      <div class="cred-ico">🏆</div>
+      <div><div class="cred-n">Beta Gamma Sigma Membership</div><div class="cred-o">Top 10% of Business Students Nationally</div></div>
+      <div class="cred-b">Active</div>
+    </div>
+    <div class="cred-row">
+      <div class="cred-ico">🏃</div>
+      <div><div class="cred-n">Chi Alpha Sigma — National Athlete Honor Society</div><div class="cred-o">Division I Scholar-Athlete Recognition</div></div>
+      <div class="cred-b">Active</div>
+    </div>
+    <div class="cred-row">
+      <div class="cred-ico">🌏</div>
+      <div><div class="cred-n">Australian Olympic Change Maker Nominee</div><div class="cred-o">Australian Olympic Committee</div></div>
+      <div class="cred-b">2021</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="page-section" id="skills">
+  <div class="section-label">Capabilities</div>
+  <div class="section-heading">Skills</div>
+  <div class="skills-grid">
+    <div class="skills-block">
+      <div class="skills-block-title">Software &amp; Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Microsoft Excel</span>
+        <span class="skill-tag">Microsoft Word</span>
+        <span class="skill-tag">Microsoft PowerPoint</span>
+        <span class="skill-tag">Microsoft Outlook</span>
+        <span class="skill-tag">Office 365</span>
+      </div>
+    </div>
+    <div class="skills-block">
+      <div class="skills-block-title">Operations &amp; Supply Chain</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Supply Chain Analysis</span>
+        <span class="skill-tag">Operations Management</span>
+        <span class="skill-tag">Process Coordination</span>
+        <span class="skill-tag">Logistics</span>
+        <span class="skill-tag">Inventory Management</span>
+      </div>
+    </div>
+    <div class="skills-block">
+      <div class="skills-block-title">Interpersonal &amp; Leadership</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Team Leadership</span>
+        <span class="skill-tag">Customer Relations</span>
+        <span class="skill-tag">Event Coordination</span>
+        <span class="skill-tag">Cross-functional Collaboration</span>
+        <span class="skill-tag">Problem Solving</span>
+      </div>
+    </div>
+    <div class="skills-block">
+      <div class="skills-block-title">AI &amp; Technology</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Claude Cowork</span>
+        <span class="skill-tag">Claude Code</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-heading">Get In Touch</div>
+  <div class="contact-links">
+    <a href="mailto:zacjnorton@gmail.com">zacjnorton@gmail.com</a>
+    <a href="tel:2522587518">252-258-7518 (US)</a>
+    <a href="tel:+61455444066">+61 455 444 066 (AU)</a>
+    <a href="resume.pdf" target="_blank">Resume ↗</a>
+    <a href="https://www.linkedin.com/in/zac-norton-5b310421b/" target="_blank">LinkedIn ↗</a>
+  </div>
+  <div style="color:var(--muted);font-size:0.85rem;">Greenville, NC · Melbourne, Australia</div>
+  <div class="footer-copy">© 2026 Zac Norton. All rights reserved.</div>
+</div>
+
+</body>
+</html>
