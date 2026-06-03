@@ -830,7 +830,8 @@
     if (rect.top < window.innerHeight * 0.9) {
       leadershipTriggered = true;
       leadershipItems.forEach(function(item, i) {
-        var delay = 300 + i * 200 + i * (i - 1) / 2 * 200;
+        var gaps = [0, 400, 400, 300, 300, 200, 200, 100, 100];
+        var delay = gaps.slice(0, i + 1).reduce(function(a, b) { return a + b; }, 0);
         setTimeout(function() { item.classList.add('visible'); }, delay);
       });
       window.removeEventListener('scroll', checkLeadership);
@@ -849,7 +850,9 @@
     if (rect.top < window.innerHeight * 0.9) {
       credTriggered = true;
       credItems.forEach(function(item, i) {
-        setTimeout(function() { item.classList.add('visible'); }, 300 + i * 200);
+        var gaps = [0, 400, 400, 300, 300, 200, 200, 100, 100];
+        var delay = gaps.slice(0, i + 1).reduce(function(a, b) { return a + b; }, 0);
+        setTimeout(function() { item.classList.add('visible'); }, delay);
       });
       window.removeEventListener('scroll', checkCredentials);
       window.removeEventListener('touchmove', checkCredentials);
