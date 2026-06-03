@@ -84,7 +84,7 @@
       background-size: cover;
       background-position: center bottom;
       background-repeat: no-repeat;
-      background-blend-mode: luminosity;
+      background-blend-mode: multiply;
       background-color: var(--bg);
     }
 
@@ -92,7 +92,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(43, 39, 66, 0.45);
+      background: rgba(43, 39, 66, 0.35);
       pointer-events: none;
       z-index: 0;
     }
@@ -295,6 +295,13 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 20px;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .leadership-item.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .leadership-item.featured {
       border-color: var(--accent);
@@ -803,6 +810,23 @@
 </div>
 
 <script>
+  // Leadership fade-in
+  const leadershipItems = document.querySelectorAll('.leadership-item');
+  let leadershipTriggered = false;
+  function checkLeadership() {
+    if (leadershipTriggered || !leadershipItems[0]) return;
+    const rect = leadershipItems[0].getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.9) {
+      leadershipTriggered = true;
+      leadershipItems.forEach(function(item, i) {
+        setTimeout(function() { item.classList.add('visible'); }, i * 300);
+      });
+      window.removeEventListener('scroll', checkLeadership);
+    }
+  }
+  window.addEventListener('scroll', checkLeadership);
+  checkLeadership();
+
   if (history.scrollRestoration) history.scrollRestoration = 'manual';
   if (window.location.hash) history.replaceState(null, '', window.location.pathname);
   window.scrollTo(0, 0);
