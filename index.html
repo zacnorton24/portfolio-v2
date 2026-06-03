@@ -92,7 +92,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(43, 39, 66, 0.72);
+      background: rgba(43, 39, 66, 0.60);
       pointer-events: none;
       z-index: 0;
     }
@@ -363,8 +363,12 @@
       padding: 20px 24px;
       display: flex;
       align-items: center;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
       gap: 16px;
     }
+    .cred-row.visible { opacity: 1; transform: translateY(0); }
     .cred-ico { font-size: 1.5rem; }
     .cred-n { font-size: 0.92rem; font-weight: 700; margin-bottom: 2px; }
     .cred-o { color: var(--accent); font-size: 0.78rem; }
@@ -835,6 +839,25 @@
   window.addEventListener('scroll', checkLeadership);
   window.addEventListener('touchmove', checkLeadership);
   checkLeadership();
+
+  // Credentials fade-in
+  var credItems = document.querySelectorAll('.cred-row');
+  var credTriggered = false;
+  function checkCredentials() {
+    if (credTriggered || !credItems[0]) return;
+    var rect = credItems[0].getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.9) {
+      credTriggered = true;
+      credItems.forEach(function(item, i) {
+        setTimeout(function() { item.classList.add('visible'); }, 300 + i * 200);
+      });
+      window.removeEventListener('scroll', checkCredentials);
+      window.removeEventListener('touchmove', checkCredentials);
+    }
+  }
+  window.addEventListener('scroll', checkCredentials);
+  window.addEventListener('touchmove', checkCredentials);
+  checkCredentials();
 
   if (history.scrollRestoration) history.scrollRestoration = 'manual';
   if (window.location.hash) history.replaceState(null, '', window.location.pathname);
