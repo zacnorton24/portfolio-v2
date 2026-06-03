@@ -92,7 +92,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(43, 39, 66, 0.65);
+      background: rgba(43, 39, 66, 0.82);
       pointer-events: none;
       z-index: 0;
     }
@@ -424,11 +424,18 @@
     @media (max-width: 700px) {
       .menubar { padding: 0 20px; }
       .menu-links { display: none; }
-      .hero { padding: 80px 24px 60px; }
+      .hero {
+        padding: 80px 24px 60px;
+        background-position: center center;
+        background-size: cover;
+        background-attachment: scroll;
+      }
       .page-section { padding: 70px 24px; }
       .about-grid { grid-template-columns: 1fr; gap: 36px; }
       .about-photo img { width: 180px; height: 180px; }
       .exp-item { grid-template-columns: 1fr; gap: 8px; }
+      .leadership-item { flex-direction: column; gap: 8px; }
+      .leadership-date { white-space: normal; }
       .skills-grid { grid-template-columns: 1fr; }
       .contact-section { padding: 70px 24px 60px; }
     }
@@ -819,7 +826,8 @@
     if (rect.top < window.innerHeight * 0.9) {
       leadershipTriggered = true;
       leadershipItems.forEach(function(item, i) {
-        setTimeout(function() { item.classList.add('visible'); }, 300 + i * 200);
+        var delay = 300 + i * 200 + i * (i - 1) / 2 * 200;
+        setTimeout(function() { item.classList.add('visible'); }, delay);
       });
       window.removeEventListener('scroll', checkLeadership);
     }
