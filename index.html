@@ -92,7 +92,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(43, 39, 66, 0.82);
+      background: rgba(43, 39, 66, 0.72);
       pointer-events: none;
       z-index: 0;
     }
@@ -432,7 +432,7 @@
       }
       .page-section { padding: 70px 24px; }
       .about-grid { grid-template-columns: 1fr; gap: 36px; }
-      .about-photo img { width: 180px; height: 180px; }
+      .about-photo img { width: 180px; height: 180px; transform: none; }
       .exp-item { grid-template-columns: 1fr; gap: 8px; }
       .leadership-item { flex-direction: column; gap: 8px; }
       .leadership-date { white-space: normal; }
@@ -833,6 +833,7 @@
     }
   }
   window.addEventListener('scroll', checkLeadership);
+  window.addEventListener('touchmove', checkLeadership);
   checkLeadership();
 
   if (history.scrollRestoration) history.scrollRestoration = 'manual';
