@@ -819,7 +819,7 @@
     if (rect.top < window.innerHeight * 0.9) {
       leadershipTriggered = true;
       leadershipItems.forEach(function(item, i) {
-        setTimeout(function() { item.classList.add('visible'); }, i * 300);
+        setTimeout(function() { item.classList.add('visible'); }, 300 + i * 200);
       });
       window.removeEventListener('scroll', checkLeadership);
     }
