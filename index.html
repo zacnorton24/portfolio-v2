@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zac Norton | Portfolio</title>
   <meta name="description" content="Operations & Supply Chain Management student at East Carolina University." />
+
+  <!-- Link preview (LinkedIn, iMessage, Slack, etc.) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Zac Norton | Supply Chain Portfolio" />
+  <meta property="og:description" content="Operations & Supply Chain Management senior at East Carolina University. Former Ford Australia Supply Chain & Logistics Intern, ISCM President, and D1 student-athlete." />
+  <meta property="og:url" content="https://portfolio-v2-ten-theta-17.vercel.app/" />
+  <meta property="og:image" content="https://portfolio-v2-ten-theta-17.vercel.app/profile.png" />
+  <meta property="og:image:alt" content="Zac Norton" />
+  <meta name="twitter:card" content="summary" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -38,6 +47,14 @@
       justify-content: space-between;
       padding: 0 40px;
       height: 60px;
+      transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+    .menubar.scrolled {
+      background: rgba(43, 39, 66, 0.6);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      backdrop-filter: blur(14px) saturate(140%);
+      border-bottom-color: rgba(143, 235, 213, 0.12);
     }
 
     .menu-label {
@@ -239,6 +256,20 @@
     .stat { display: flex; flex-direction: column; gap: 4px; }
     .stat-value { font-size: 2rem; font-weight: 900; color: var(--accent); line-height: 1; }
     .stat-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .iscm-stats { margin: 0 0 24px; }
+    .iscm-stats .stat-value { font-size: 1.5rem; }
+    .iscm-stats .stat-value span { color: var(--muted); font-weight: 400; margin: 0 6px; }
+
+    /* Growth charts */
+    .growth-chart { display: block; margin-top: 12px; width: 180px; height: 110px; overflow: visible; }
+    .growth-chart .baseline { stroke: var(--border); stroke-width: 1; }
+    .growth-chart .bar { transform-box: fill-box; transform-origin: bottom; transform: scaleY(0); transition: transform 1.1s cubic-bezier(0.22,1,0.36,1), opacity 0.2s; }
+    .growth-chart .bar.before { fill: #5a9e92; }
+    .growth-chart .bar.after { fill: var(--accent); transition-delay: 0.3s, 0s; }
+    .leadership-item.visible.open .growth-chart .bar { transform: scaleY(1); }
+    .growth-chart g:hover .bar { opacity: 0.8; }
+    .growth-chart .val { fill: var(--text); font-size: 12px; font-weight: 700; text-anchor: middle; }
+    .growth-chart .cat { fill: var(--muted); font-size: 10px; letter-spacing: 0.05em; text-anchor: middle; text-transform: uppercase; }
 
     /* ── EXPERIENCE ── */
     .exp-list { display: flex; flex-direction: column; gap: 2px; }
@@ -250,21 +281,56 @@
       grid-template-columns: 180px 1fr;
       gap: 40px;
       cursor: default;
-      transition: background 0.2s;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 1.125s ease, transform 1.125s ease, background 0.2s;
     }
+    .exp-item.visible { opacity: 1; transform: translateY(0); }
     .exp-item:last-child { border-bottom: 1px solid var(--border); }
 
     .exp-meta { display: flex; flex-direction: column; gap: 6px; padding-top: 4px; }
     .exp-company-name { font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; }
-    .exp-date-tag { font-size: 0.72rem; color: var(--muted); }
-    .current-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-right: 6px; animation: pulse 2s infinite; }
+    .exp-company-name a { color: inherit; text-decoration: none; }
+    .exp-company-name a:hover { text-decoration: underline; }
+    .inline-link { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+    .inline-link:hover { border-bottom-color: var(--accent); }
+    .more-links { display: flex; flex-wrap: wrap; gap: 18px; }
+
+    /* ── EDUCATION JOURNEY ── */
+    .journey { display: flex; align-items: stretch; gap: 16px; margin-bottom: 28px; }
+    .journey-step { flex: 1; background: var(--card2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+    .journey-step.current { border-color: var(--accent); }
+    .journey-years { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .journey-school { font-weight: 800; font-size: 1rem; margin-bottom: 4px; }
+    .school-link { color: inherit; text-decoration: none; }
+    .school-link:hover { color: var(--accent); }
+    .journey-detail { color: var(--accent); font-size: 0.8rem; line-height: 1.5; }
+    .journey-arrow { display: flex; align-items: center; color: var(--accent); font-size: 1.6rem; }
+
+    /* ── CONFERENCES ── */
+    .conf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .conf-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 8px; }
+    .conf-when { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .conf-name { font-weight: 800; font-size: 1.02rem; }
+    .conf-desc { color: var(--muted); font-size: 0.86rem; line-height: 1.65; flex: 1; }
+
+    /* ── PHOTOS ── */
+    .photo { margin: 0; background: var(--card2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .photo img { display: block; width: 100%; height: auto; }
+    .photo figcaption { padding: 10px 14px; font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+    .exp-photo { margin-top: 14px; }
+    .exp-photo figcaption { font-size: 0.7rem; padding: 8px 10px; }
+    .photo-credit { display: block; margin-top: 2px; font-size: 0.56rem; opacity: 0.6; letter-spacing: 0.02em; }
+    .card-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .card-photos img { aspect-ratio: 4 / 3; object-fit: cover; }
+    .conf-photo { display: block; width: calc(100% + 48px); margin: -24px -24px 8px; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius) var(--radius) 0 0; }
 
     .exp-body {}
     .exp-role { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; }
     .exp-desc-text { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 16px; }
     .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
     .exp-bullets li { color: var(--text); font-size: 0.86rem; line-height: 1.6; padding-left: 16px; position: relative; }
-    .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+    .exp-bullets li::before { content: '-'; position: absolute; left: 0; color: var(--accent); }
 
     .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
     .tag {
@@ -297,7 +363,7 @@
       gap: 20px;
       opacity: 0;
       transform: translateY(24px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition: opacity 1.125s ease, transform 1.125s ease;
     }
     .leadership-item.visible {
       opacity: 1;
@@ -336,6 +402,40 @@
     .phase-t { color: var(--text); line-height: 1.5; }
     .phase-t span { color: var(--muted); }
 
+    /* ── EXPANDABLE CARDS ── */
+    .expandable { cursor: pointer; }
+    .expandable:hover { border-color: var(--accent-dim); }
+    .expandable:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .item-main { flex: 1; min-width: 0; }
+    .expandable .leadership-title::after,
+    .expandable .cred-n::after {
+      content: '›';
+      display: inline-block;
+      margin-left: 10px;
+      color: var(--accent);
+      font-weight: 400;
+      transform: rotate(90deg);
+      transition: transform 0.25s ease;
+    }
+    .expandable.open .leadership-title::after,
+    .expandable.open .cred-n::after { transform: rotate(-90deg); }
+    .more {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s ease;
+    }
+    .expandable.open .more { grid-template-rows: 1fr; }
+    .more-inner { min-height: 0; overflow: hidden; }
+    .more-text {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.7;
+    }
+    .more-text p + p { margin-top: 10px; }
+
     /* ── EDUCATION ── */
     .edu-block {
       background: var(--card);
@@ -352,7 +452,7 @@
     .edu-section-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 700; margin-bottom: 10px; }
     .edu-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
     .edu-list li { font-size: 0.86rem; color: var(--text); padding-left: 16px; position: relative; line-height: 1.5; }
-    .edu-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+    .edu-list li::before { content: '-'; position: absolute; left: 0; color: var(--accent); }
 
     /* ── CREDENTIALS ── */
     .cred-grid { display: flex; flex-direction: column; gap: 12px; }
@@ -365,10 +465,12 @@
       align-items: center;
       opacity: 0;
       transform: translateY(24px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease;
       gap: 16px;
     }
     .cred-row.visible { opacity: 1; transform: translateY(0); }
+    .cred-row.expandable { align-items: flex-start; }
+    .cred-row .cred-ico, .cred-row .cred-b { margin-top: 2px; }
     .cred-ico { font-size: 1.5rem; }
     .cred-n { font-size: 0.92rem; font-weight: 700; margin-bottom: 2px; }
     .cred-o { color: var(--accent); font-size: 0.78rem; }
@@ -439,6 +541,11 @@
       .about-photo img { width: 180px; height: 180px; transform: none; }
       .exp-item { grid-template-columns: 1fr; gap: 8px; }
       .leadership-item { flex-direction: column; gap: 8px; }
+      .journey { flex-direction: column; }
+      .journey-arrow { justify-content: center; transform: rotate(90deg); }
+      .conf-grid { grid-template-columns: 1fr; }
+      .card-photos { grid-template-columns: 1fr; }
+      .exp-photo { max-width: 260px; }
       .leadership-date { white-space: normal; }
       .skills-grid { grid-template-columns: 1fr; }
       .contact-section { padding: 70px 24px 60px; }
@@ -448,15 +555,16 @@
 <body id="top">
 
 <!-- MENU BAR -->
-<div class="menubar">
+<div class="menubar" id="menubar">
   <a class="menu-label" href="#top" style="text-decoration:none;">
     ⌂ Home
   </a>
   <div class="menu-links">
     <a href="#about">About</a>
+    <a href="#education">Education</a>
     <a href="#experience">Experience</a>
     <a href="#leadership">Leadership</a>
-    <a href="#education">Education</a>
+    <a href="#conferences">Conferences</a>
     <a href="#skills">Skills</a>
     <a href="#contact">Contact</a>
   </div>
@@ -467,10 +575,11 @@
   <div class="hero-name">Zac Norton</div>
   <div class="hero-sub">
     Operations &amp; Supply Chain Management student at East Carolina University.<br>
-    Supply Chain intern at Ford Australia.
+    Most recently a Supply Chain &amp; Logistics Intern at Ford Australia.
   </div>
   <div class="hero-cta">
     <a class="cta-btn filled" href="resume.pdf" target="_blank">View Resume</a>
+    <a class="cta-btn" href="https://www.linkedin.com/in/zac-norton-5b310421b/" target="_blank" rel="noopener">LinkedIn ↗</a>
     <a class="cta-btn" href="#experience" onclick="document.getElementById('experience').scrollIntoView({behavior:'smooth'});return false;">See My Work</a>
   </div>
   <div class="hero-scroll">
@@ -489,18 +598,20 @@
     </div>
     <div class="about-text">
       <p>
-        Operations and Supply Chain Management student at East Carolina University with a 3.84 GPA.
-        Division I full-scholarship student-athlete competing in Track &amp; Cross Country.
+        Operations and Supply Chain Management student at East Carolina University with a 3.9 GPA.
+        Former Division I full-scholarship student-athlete in Track &amp; Cross Country.
       </p>
       <p>
-        I'm interested in how businesses move — how supply chains are optimized, and how data-driven
-        decisions reduce waste and improve performance. Currently interning with Active Supply Chains
-        on Ford Australia projects.
+        I'm interested in how businesses move - how supply chains are optimized, and how data-driven
+        decisions reduce waste and improve performance. This past summer I interned at Ford Australia's
+        Parts Distribution Center in Melbourne, streamlining processes and supporting urgent parts dispatch.
       </p>
-      <p>Open to full-time opportunities starting May 2027.</p>
+      <p>
+        My goal is to become a Supply Chain Analyst. Open to full-time opportunities starting May 2027.
+      </p>
       <div class="about-stats">
         <div class="stat">
-          <div class="stat-value">3.84</div>
+          <div class="stat-value">3.9</div>
           <div class="stat-label">GPA / 4.0</div>
         </div>
         <div class="stat">
@@ -516,6 +627,55 @@
   </div>
 </section>
 
+<!-- EDUCATION -->
+<section class="page-section" id="education">
+  <div class="section-label">Academic Background</div>
+  <div class="section-heading">Education</div>
+  <div class="edu-block">
+    <div class="journey">
+      <div class="journey-step">
+        <div class="journey-years">2022 – 2023</div>
+        <div class="journey-school"><a class="school-link" href="https://www.wingate.edu/" target="_blank" rel="noopener">Wingate University ↗</a></div>
+        <div class="journey-detail">NCAA Division II Track &amp; Cross Country<br>4.0 GPA · SAC Academic Honor Roll</div>
+      </div>
+      <div class="journey-arrow" aria-hidden="true">→</div>
+      <div class="journey-step current">
+        <div class="journey-years">2024 – May 2027</div>
+        <div class="journey-school"><a class="school-link" href="https://www.ecu.edu/" target="_blank" rel="noopener">East Carolina University ↗</a></div>
+        <div class="journey-detail">NCAA Division I Track &amp; Cross Country<br>3.9 GPA · ISCM President</div>
+      </div>
+    </div>
+    <div class="edu-school-name"><a class="school-link" href="https://business.ecu.edu/" target="_blank" rel="noopener">East Carolina University College of Business ↗</a></div>
+    <div class="edu-deg">Bachelor of Science in Business Administration - Operations &amp; Supply Chain Management</div>
+    <div class="edu-facts">
+      <div>
+        <div class="edu-fact-label">Graduation</div>
+        <div class="edu-fact-val">May 2027</div>
+      </div>
+      <div>
+        <div class="edu-fact-label">GPA</div>
+        <div class="edu-fact-val">3.9 / 4.0</div>
+      </div>
+      <div>
+        <div class="edu-fact-label">Location</div>
+        <div class="edu-fact-val">Greenville, NC</div>
+      </div>
+    </div>
+    <div class="edu-section-label">Honors</div>
+    <ul class="edu-list" style="margin-bottom:20px;">
+      <li>Chancellor's List - Fall 2025</li>
+      <li>Dean's List - Fall 2024, Spring 2025, Spring 2026</li>
+      <li>Beta Gamma Sigma Business Honor Society - Fall 2025</li>
+      <li>Chi Alpha Sigma National Athlete Honor Society - Fall 2026</li>
+    </ul>
+    <div class="edu-section-label">Athletics</div>
+    <ul class="edu-list">
+      <li>Former Division I Full-Scholarship Student-Athlete - ECU Track &amp; Cross Country (Fall 2024 – Spring 2025)</li>
+      <li>South Atlantic Conference Honor Roll - Wingate University (Fall 2022, Spring 2023)</li>
+    </ul>
+  </div>
+</section>
+
 <!-- EXPERIENCE -->
 <section class="page-section" id="experience">
   <div class="section-label">Work History</div>
@@ -524,25 +684,41 @@
 
     <div class="exp-item">
       <div class="exp-meta">
-        <div class="exp-company-name">Active Supply Chains · Ford Australia</div>
-        <div class="exp-date-tag"><span class="current-dot"></span>Current</div>
+        <div class="exp-company-name"><a href="https://www.ford.com.au/" target="_blank" rel="noopener">Ford Australia Parts Distribution Center ↗</a></div>
+        <div class="exp-date-tag">May 2026 – Jul 2026</div>
+        <div class="exp-date-tag" style="margin-top:2px;font-size:0.68rem;">Melbourne, Australia</div>
+        <figure class="photo exp-photo">
+          <img src="photos/ford-pdc.jpg" width="1050" height="1400" loading="lazy" alt="Zac Norton at the Ford Australia Parts Distribution Center" />
+        </figure>
       </div>
       <div class="exp-body">
-        <div class="exp-role">Supply Chain Intern</div>
-        <div class="exp-desc-text">Supporting supply chain operations and analysis as part of a structured internship program, working on Ford Australia–related projects.</div>
+        <div class="exp-role">Supply Chain &amp; Logistics Intern</div>
+        <div class="exp-desc-text">Supported parts distribution operations at Ford Australia's Parts Distribution Center, improving internal processes and keeping urgent orders moving.</div>
+        <ul class="exp-bullets">
+          <li>Streamlined the parts catalogue query process, saving Ford's customer service division several minutes per lookup</li>
+          <li>Released urgent VOR (vehicle off road) parts orders using Panda ERP to ensure timely dispatch</li>
+          <li>Delivered a town hall presentation to 100+ staff - the first intern to present</li>
+          <li>Taught colleagues to integrate artificial intelligence into their workflows</li>
+        </ul>
         <div class="tag-row">
           <span class="tag">Supply Chain</span>
-          <span class="tag">Operations</span>
-          <span class="tag">Analysis</span>
+          <span class="tag">Logistics</span>
+          <span class="tag">Panda ERP</span>
+          <span class="tag">Process Improvement</span>
+          <span class="tag">AI Enablement</span>
         </div>
       </div>
     </div>
 
     <div class="exp-item">
       <div class="exp-meta">
-        <div class="exp-company-name">Norton Ford</div>
+        <div class="exp-company-name"><a href="https://www.nortonford.com.au/" target="_blank" rel="noopener">Norton Ford ↗</a></div>
         <div class="exp-date-tag">Jan 2024 – Aug 2024</div>
         <div class="exp-date-tag" style="margin-top:2px;font-size:0.68rem;">Warrnambool, Australia</div>
+        <figure class="photo exp-photo">
+          <img src="photos/norton-ford.jpg" width="1024" height="498" loading="lazy" alt="The Norton Ford Warrnambool dealership" />
+          <figcaption>Norton Ford Warrnambool<br><span class="photo-credit">Photo: Dave Starr, Five Starr Photos</span></figcaption>
+        </figure>
       </div>
       <div class="exp-body">
         <div class="exp-role">Ford Service Advisor</div>
@@ -564,17 +740,21 @@
 
     <div class="exp-item">
       <div class="exp-meta">
-        <div class="exp-company-name">Crown</div>
+        <div class="exp-company-name"><a href="https://www.crownmelbourne.com.au/" target="_blank" rel="noopener">Crown ↗</a></div>
         <div class="exp-date-tag">Feb 2022 – Aug 2024</div>
         <div class="exp-date-tag" style="margin-top:2px;font-size:0.68rem;">Melbourne, Australia</div>
+        <figure class="photo exp-photo">
+          <img src="photos/crown-palladium.jpg" width="1000" height="666" loading="lazy" alt="The Palladium ballroom at Crown Melbourne set for a gala dinner" />
+          <figcaption>The Palladium at Crown<br><span class="photo-credit">Photo: Crown Melbourne</span></figcaption>
+        </figure>
       </div>
       <div class="exp-body">
-        <div class="exp-role">Food &amp; Beverage Attendant</div>
+        <div class="exp-role">Dietary Leader</div>
         <div class="exp-desc-text">Delivered 5-star hospitality across high-volume events and intimate functions at one of Australia's premier entertainment destinations.</div>
         <ul class="exp-bullets">
-          <li>Catered events from intimate meetings to functions of over 1,000 guests</li>
-          <li>Helped maintain Crown's 5-Star status through exceptional guest experiences</li>
-          <li>Served as Dietary Leader — ensuring all dietary requirements were correctly maintained</li>
+          <li>Promoted from Food &amp; Beverage Attendant to Dietary Leader within 6 months</li>
+          <li>Assisted in events ranging from intimate meetings to large-scale functions of over 1,000 guests</li>
+          <li>Tracked and fulfilled individual guest dietary requirements across 200+ events without incident</li>
         </ul>
         <div class="tag-row">
           <span class="tag">Hospitality</span>
@@ -594,137 +774,210 @@
   <div class="section-heading">Leadership</div>
   <div class="leadership-grid">
 
-    <div class="leadership-item featured">
-      <div style="flex:1;">
-        <div class="leadership-title">Institute of Supply Chain Management — President</div>
+    <div class="leadership-item featured expandable open">
+      <div class="item-main">
+        <div class="leadership-title">Institute of Supply Chain Management - President</div>
         <div class="leadership-org">East Carolina University</div>
+        <div class="more"><div class="more-inner">
         <div class="initiative-detail">
           <div class="initiative-desc">
-            Leading a first-of-its-kind initiative to bring Lean Six Sigma Green Belt certification to ECU's College of Business.
-            When I took over as President in May, this had been written off as near-impossible. Within 24 hours I was in a meeting
-            with the SGA President outlining the vision. We are now executing a deliberate, data-driven path to make it happen —
-            and when we do, every future ECU College of Business student will have access to a certification most graduates won't have.
+            My focus as President is simple: create more opportunities for ISCM students to connect with industry,
+            see supply chains in action, and graduate career-ready.
+          </div>
+          <div class="about-stats iscm-stats">
+            <div class="stat">
+              <div class="stat-value">10<span>→</span>22</div>
+              <div class="stat-label">Paid Members: Last Year → Sept 2026</div>
+              <svg class="growth-chart" viewBox="0 0 180 110" role="img" aria-label="Paid members grew from 10 last year to 22 in September 2026">
+                <g><title>Last year: 10 paid members</title>
+                  <path class="bar before" d="M30,86 V62.7 Q30,58.7 34,58.7 H70 Q74,58.7 74,62.7 V86 Z" />
+                  <text class="val" x="52" y="52.7">10</text>
+                  <text class="cat" x="52" y="102">Last Year</text>
+                </g>
+                <g><title>September 2026: 22 paid members</title>
+                  <path class="bar after" d="M106,86 V30 Q106,26 110,26 H146 Q150,26 150,30 V86 Z" />
+                  <text class="val" x="128" y="20">22</text>
+                  <text class="cat" x="128" y="102">Sept 2026</text>
+                </g>
+                <line class="baseline" x1="20" y1="86" x2="160" y2="86" />
+              </svg>
+            </div>
+            <div class="stat">
+              <div class="stat-value">147<span>→</span>287</div>
+              <div class="stat-label">Instagram Followers: Aug → Sept 2026</div>
+              <svg class="growth-chart" viewBox="0 0 180 110" role="img" aria-label="Instagram followers grew from 147 in August to 287 in September 2026">
+                <g><title>August 2026: 147 followers</title>
+                  <path class="bar before" d="M30,86 V59.3 Q30,55.3 34,55.3 H70 Q74,55.3 74,59.3 V86 Z" />
+                  <text class="val" x="52" y="49.3">147</text>
+                  <text class="cat" x="52" y="102">Aug</text>
+                </g>
+                <g><title>September 2026: 287 followers</title>
+                  <path class="bar after" d="M106,86 V30 Q106,26 110,26 H146 Q150,26 150,30 V86 Z" />
+                  <text class="val" x="128" y="20">287</text>
+                  <text class="cat" x="128" y="102">Sept</text>
+                </g>
+                <line class="baseline" x1="20" y1="86" x2="160" y2="86" />
+              </svg>
+            </div>
+          </div>
+          <div class="card-photos">
+            <figure class="photo">
+              <img src="photos/iscm-meeting.jpg" width="1400" height="1050" loading="lazy" alt="A full room at ISCM's first meeting of Fall 2026" />
+              <figcaption>ISCM's first meeting of Fall 2026</figcaption>
+            </figure>
+            <figure class="photo">
+              <img src="photos/iscm-tabling.jpg" width="1050" height="1400" loading="lazy" style="object-position:50% 65%;" alt="ISCM tabling event on the ECU College of Business lawn" />
+              <figcaption>Recruiting at an ISCM tabling event</figcaption>
+            </figure>
+          </div>
+          <p class="more-links" style="margin-bottom:24px;font-size:0.86rem;"><a class="inline-link" href="https://www.instagram.com/ecu.iscm/" target="_blank" rel="noopener">Instagram: @ecu.iscm ↗</a></p>
+          <div class="edu-section-label" style="margin-bottom:10px;">What I Do</div>
+          <ul class="exp-bullets" style="margin-bottom:20px;">
+            <li>Host tabling events to grow ISCM's presence and recruit members across the College of Business</li>
+            <li>Organize meetings with industry guest speakers, connecting students directly with supply chain professionals</li>
+            <li>Organize site visits to see supply chains in action, including the Port of Wilmington and an Amazon facility</li>
+            <li>Build relationships with faculty and employers to open doors to internships and careers for our members</li>
+          </ul>
+          <div class="edu-section-label" style="margin-bottom:10px;">Lean Six Sigma Initiative</div>
+          <div class="initiative-desc">
+            Leading a first-of-its-kind initiative to bring <a class="inline-link" href="https://asq.org/quality-resources/six-sigma" target="_blank" rel="noopener">Lean Six Sigma</a> certification to ECU's College of Business.
+            I'm working alongside faculty, guest speakers and employers to give students hands-on process improvement
+            training before they graduate. The end goal: any ECU College of Business student can earn their Green Belt
+            through ISCM, a certification most graduates won't have.
           </div>
           <div class="edu-section-label" style="margin-bottom:10px;">Roadmap</div>
           <div class="phase-list">
             <div class="phase">
               <div class="phase-n">1</div>
-              <div class="phase-t">Drive 50 students to complete the <strong>free White Belt course</strong> — proving demand. <span>Active now: relentless social media push across the college.</span></div>
+              <div class="phase-t">Run two <strong>White Belt sessions</strong> this semester, with a goal of 20 students certified. <span>Active now.</span></div>
             </div>
             <div class="phase">
               <div class="phase-n">2</div>
-              <div class="phase-t">Use participation data to build a <strong>numerical case for funding</strong> with university stakeholders.</div>
+              <div class="phase-t">Guide 15 of those students through their <strong>Green Belt certification</strong> next semester.</div>
             </div>
             <div class="phase">
               <div class="phase-n">3</div>
-              <div class="phase-t">Secure funding and launch the <strong>Green Belt program</strong> — a college-wide certification pathway for all ECU business students.</div>
+              <div class="phase-t">Make the <strong>Green Belt pathway</strong> available to every ECU College of Business student through ISCM.</div>
             </div>
           </div>
         </div>
+        </div></div>
       </div>
-      <div class="leadership-date"><span class="current-dot"></span>Current</div>
+      <div class="leadership-date"><span class="current-dot"></span>Summer 2026 – Present</div>
     </div>
 
-    <div class="leadership-item">
-      <div>
-        <div class="leadership-title">Division I Full-Scholarship Student-Athlete</div>
+    <div class="leadership-item expandable">
+      <div class="item-main">
+        <div class="leadership-title">Former Division I Full-Scholarship Student-Athlete</div>
         <div class="leadership-org">ECU Track &amp; Cross Country</div>
+        <div class="more"><div class="more-inner"><div class="more-text">
+          <p>I came to ECU from Wingate University on a full athletic scholarship to race Track &amp; Field and Cross Country at the NCAA Division I level.</p>
+          <p>Along the way, a serious knee injury and two surgeries put my running in doubt, and medical professionals told me I might never race again. I committed to the long, slow work of rehab and made it back to the start line, racing for ECU again.</p>
+          <p>That comeback taught me patience, resilience and discipline. These are values I carry into every part of my life.</p>
+          <p class="more-links"><a class="inline-link" href="https://ecupirates.com/sports/track-and-field/roster/zac-norton/13623" target="_blank" rel="noopener">ECU roster profile ↗</a><a class="inline-link" href="https://wingatebulldogs.com/sports/cross-country/roster/zac-norton/11505" target="_blank" rel="noopener">Wingate roster profile ↗</a></p>
+        </div></div></div>
       </div>
-      <div class="leadership-date">Fall 2024 – Present</div>
+      <div class="leadership-date">Fall 2024 – Spring 2025</div>
     </div>
 
-    <div class="leadership-item">
-      <div>
-        <div class="leadership-title">Chi Alpha Sigma — National Athlete Honor Society</div>
+    <div class="leadership-item expandable">
+      <div class="item-main">
+        <div class="leadership-title">Chi Alpha Sigma - National Athlete Honor Society</div>
         <div class="leadership-org">East Carolina University</div>
+        <div class="more"><div class="more-inner"><div class="more-text">
+          <p>Chi Alpha Sigma is the national honor society for college student-athletes. Membership is limited to varsity athletes who have reached junior standing with a cumulative GPA of 3.5 or higher, recognizing sustained excellence in both the classroom and competition.</p>
+          <p><a class="inline-link" href="https://www.chialphasigma.org/" target="_blank" rel="noopener">Visit Chi Alpha Sigma ↗</a></p>
+        </div></div></div>
       </div>
       <div class="leadership-date">Fall 2026 – Present</div>
     </div>
 
-    <div class="leadership-item">
-      <div>
-        <div class="leadership-title">Beta Gamma Sigma — Business Honor Society</div>
+    <div class="leadership-item expandable">
+      <div class="item-main">
+        <div class="leadership-title">Beta Gamma Sigma - Business Honor Society</div>
         <div class="leadership-org">East Carolina University</div>
+        <div class="more"><div class="more-inner"><div class="more-text">
+          <p>Beta Gamma Sigma is the international honor society for business schools accredited by AACSB. Membership is by invitation only and extended to the top 10% of undergraduate business students, making it the highest academic recognition a business student can receive.</p>
+          <p><a class="inline-link" href="https://www.betagammasigma.org/" target="_blank" rel="noopener">Visit Beta Gamma Sigma ↗</a></p>
+        </div></div></div>
       </div>
       <div class="leadership-date">Fall 2025 – Present</div>
     </div>
 
-    <div class="leadership-item">
-      <div>
-        <div class="leadership-title">Institute of Supply Chain Management — VP of Membership</div>
+    <div class="leadership-item expandable">
+      <div class="item-main">
+        <div class="leadership-title">Institute of Supply Chain Management - VP of Membership</div>
         <div class="leadership-org">East Carolina University</div>
+        <div class="more"><div class="more-inner"><div class="more-text">
+          <p>The Institute of Supply Chain Management (ISCM) is ECU's student organization for operations and supply chain students, connecting members with industry professionals, employers and career opportunities.</p>
+          <p>As VP of Membership I was responsible for recruiting new members, keeping existing members engaged, and growing the organization's presence across the College of Business, before being elected President.</p>
+          <p><a class="inline-link" href="https://www.instagram.com/ecu.iscm/" target="_blank" rel="noopener">Instagram: @ecu.iscm ↗</a></p>
+        </div></div></div>
       </div>
       <div class="leadership-date">Fall 2025 – Spring 2026</div>
     </div>
 
-    <div class="leadership-item">
-      <div>
+    <div class="leadership-item expandable">
+      <div class="item-main">
         <div class="leadership-title">Chancellor's List</div>
         <div class="leadership-org">East Carolina University</div>
+        <div class="more"><div class="more-inner"><div class="more-text">
+          <p>The Chancellor's List is ECU's highest semester academic honor, awarded to full-time undergraduates who earn a perfect 4.0 GPA for the semester.</p>
+        </div></div></div>
       </div>
       <div class="leadership-date">Fall 2025</div>
     </div>
 
-    <div class="leadership-item">
-      <div>
+    <div class="leadership-item expandable">
+      <div class="item-main">
         <div class="leadership-title">Dean's List</div>
         <div class="leadership-org">East Carolina University</div>
+        <div class="more"><div class="more-inner"><div class="more-text">
+          <p>The Dean's List recognizes full-time undergraduates who earn a semester GPA of 3.5 or higher with no grade below a C. I've earned it three times, including while competing as a Division I athlete.</p>
+        </div></div></div>
       </div>
-      <div class="leadership-date">Fall 2024, Spring 2025</div>
+      <div class="leadership-date">Fall 2024, Spring 2025, Spring 2026</div>
     </div>
 
-    <div class="leadership-item">
-      <div>
+    <div class="leadership-item expandable">
+      <div class="item-main">
         <div class="leadership-title">South Atlantic Conference Honor Roll</div>
         <div class="leadership-org">Wingate University</div>
+        <div class="more"><div class="more-inner"><div class="more-text">
+          <p>The South Atlantic Conference (NCAA Division II) Academic Honor Roll recognizes student-athletes who achieve a strong GPA while competing. I earned it in both semesters at Wingate University, finishing with a 4.0 GPA, before transferring to ECU to compete at the Division I level.</p>
+          <p><a class="inline-link" href="https://thesac.com/" target="_blank" rel="noopener">Visit the South Atlantic Conference ↗</a></p>
+        </div></div></div>
       </div>
       <div class="leadership-date">Fall 2022, Spring 2023</div>
-    </div>
-
-    <div class="leadership-item">
-      <div>
-        <div class="leadership-title">Australian Olympic Change Maker Nominee</div>
-        <div class="leadership-org">Australian Olympic Committee</div>
-      </div>
-      <div class="leadership-date">Fall 2021</div>
     </div>
 
   </div>
 </section>
 
-<!-- EDUCATION -->
-<section class="page-section" id="education">
-  <div class="section-label">Academic Background</div>
-  <div class="section-heading">Education</div>
-  <div class="edu-block">
-    <div class="edu-school-name">East Carolina University College of Business</div>
-    <div class="edu-deg">Bachelor of Science in Business Administration — Operations &amp; Supply Chain Management</div>
-    <div class="edu-facts">
-      <div>
-        <div class="edu-fact-label">Graduation</div>
-        <div class="edu-fact-val">May 2027</div>
-      </div>
-      <div>
-        <div class="edu-fact-label">GPA</div>
-        <div class="edu-fact-val">3.84 / 4.0</div>
-      </div>
-      <div>
-        <div class="edu-fact-label">Location</div>
-        <div class="edu-fact-val">Greenville, NC</div>
-      </div>
+<!-- CONFERENCES -->
+<section class="page-section" id="conferences">
+  <div class="section-label">Industry Exposure</div>
+  <div class="section-heading">Conferences &amp; Site Visits</div>
+  <div class="conf-grid">
+    <div class="conf-card">
+      <img class="conf-photo" src="photos/stafda-2025.jpg" width="1400" height="1050" loading="lazy" alt="ECU students and faculty at the STAFDA 2025 convention in Phoenix" />
+      <div class="conf-when">2025 · Phoenix, AZ</div>
+      <div class="conf-name">STAFDA Convention &amp; Trade Show</div>
+      <div class="conf-desc">The Specialty Tools &amp; Fasteners Distributors Association's annual convention. Attended with ISCM members and ECU faculty to hear from industry leaders and connect with distribution professionals.</div>
+      <a class="inline-link" href="https://www.stafda.org/" target="_blank" rel="noopener">stafda.org ↗</a>
     </div>
-    <div class="edu-section-label">Honors</div>
-    <ul class="edu-list" style="margin-bottom:20px;">
-      <li>Chancellor's List — Fall 2025</li>
-      <li>Dean's List — Fall 2024, Spring 2025</li>
-      <li>Beta Gamma Sigma Business Honor Society — Fall 2025</li>
-      <li>Chi Alpha Sigma National Athlete Honor Society — Fall 2026</li>
-    </ul>
-    <div class="edu-section-label">Athletics</div>
-    <ul class="edu-list">
-      <li>Division I Full-Scholarship Student-Athlete — ECU Track &amp; Cross Country (Fall 2024 – Present)</li>
-      <li>South Atlantic Conference Honor Roll — Wingate University (Fall 2022, Spring 2023)</li>
-    </ul>
+    <div class="conf-card">
+      <div class="conf-when">2026</div>
+      <div class="conf-name">ISM World</div>
+      <div class="conf-desc">The Institute for Supply Management's annual conference, one of the largest gatherings of procurement and supply chain professionals. Attended to learn from industry leaders and build connections.</div>
+      <a class="inline-link" href="https://www.ismworld.org/" target="_blank" rel="noopener">ismworld.org ↗</a>
+    </div>
+    <div class="conf-card">
+      <div class="conf-when">ISCM Trips</div>
+      <div class="conf-name">Industry Site Visits</div>
+      <div class="conf-desc">Organized ISCM trips to see supply chains in action, including the Port of Wilmington and an Amazon facility.</div>
+      <a class="inline-link" href="https://ncports.com/" target="_blank" rel="noopener">NC Ports ↗</a>
+    </div>
   </div>
 </section>
 
@@ -733,30 +986,49 @@
   <div class="section-label">Verified</div>
   <div class="section-heading">Credentials</div>
   <div class="cred-grid">
-    <div class="cred-row">
+    <div class="cred-row expandable">
       <div class="cred-ico">📊</div>
-      <div><div class="cred-n">Pearson Excel Comprehensive Badge</div><div class="cred-o">Pearson Education</div></div>
+      <div class="item-main">
+        <div class="cred-n">Pearson Excel Comprehensive Badge</div><div class="cred-o">Pearson Education</div>
+        <div class="more"><div class="more-inner"><div class="more-text">
+          <p>A digital credential from Pearson certifying comprehensive Microsoft Excel proficiency, from formulas and functions to charts, data analysis and workbook management. It's the foundation for the spreadsheet modeling and reporting work used across supply chain roles.</p>
+        </div></div></div>
+      </div>
       <div class="cred-b">Verified</div>
     </div>
-    <div class="cred-row">
+    <div class="cred-row expandable">
       <div class="cred-ico">⚙️</div>
-      <div><div class="cred-n">Lean Six Sigma — White Belt</div><div class="cred-o">Six Sigma Certification</div></div>
+      <div class="item-main">
+        <div class="cred-n">Lean Six Sigma - White Belt</div><div class="cred-o">Six Sigma Online (Aveta Business Institute)</div>
+        <div class="more"><div class="more-inner"><div class="more-text">
+          <p>The entry-level Lean Six Sigma certification, covering the core principles of process improvement: identifying waste, reducing variation, and the DMAIC (Define, Measure, Analyze, Improve, Control) problem-solving framework.</p>
+          <p>It's also the first step in my ISCM initiative to bring Green Belt certification to every ECU College of Business student.</p>
+          <p class="more-links"><a class="inline-link" href="https://www.sixsigmaonline.org/six-sigma-white-belt-certification/" target="_blank" rel="noopener">About the White Belt certification ↗</a><a class="inline-link" href="https://asq.org/quality-resources/six-sigma" target="_blank" rel="noopener">New to Lean Six Sigma? Quick overview ↗</a></p>
+        </div></div></div>
+      </div>
       <div class="cred-b">Verified</div>
     </div>
-    <div class="cred-row">
+    <div class="cred-row expandable">
       <div class="cred-ico">🏆</div>
-      <div><div class="cred-n">Beta Gamma Sigma Membership</div><div class="cred-o">Top 10% of Business Students Nationally</div></div>
+      <div class="item-main">
+        <div class="cred-n">Beta Gamma Sigma Membership</div><div class="cred-o">Top 10% of Business Students Nationally</div>
+        <div class="more"><div class="more-inner"><div class="more-text">
+          <p>Lifetime membership in the international honor society for AACSB-accredited business schools, extended by invitation only to students ranking in the top 10% of their business program.</p>
+          <p><a class="inline-link" href="https://www.betagammasigma.org/" target="_blank" rel="noopener">Visit Beta Gamma Sigma ↗</a></p>
+        </div></div></div>
+      </div>
       <div class="cred-b">Active</div>
     </div>
-    <div class="cred-row">
+    <div class="cred-row expandable">
       <div class="cred-ico">🏃</div>
-      <div><div class="cred-n">Chi Alpha Sigma — National Athlete Honor Society</div><div class="cred-o">Division I Scholar-Athlete Recognition</div></div>
+      <div class="item-main">
+        <div class="cred-n">Chi Alpha Sigma - National Athlete Honor Society</div><div class="cred-o">Division I Scholar-Athlete Recognition</div>
+        <div class="more"><div class="more-inner"><div class="more-text">
+          <p>National recognition for varsity student-athletes who reach junior standing with a cumulative GPA of 3.5 or higher, honoring those who excel academically while competing at the collegiate level.</p>
+          <p><a class="inline-link" href="https://www.chialphasigma.org/" target="_blank" rel="noopener">Visit Chi Alpha Sigma ↗</a></p>
+        </div></div></div>
+      </div>
       <div class="cred-b">Active</div>
-    </div>
-    <div class="cred-row">
-      <div class="cred-ico">🌏</div>
-      <div><div class="cred-n">Australian Olympic Change Maker Nominee</div><div class="cred-o">Australian Olympic Committee</div></div>
-      <div class="cred-b">2021</div>
     </div>
   </div>
 </section>
@@ -769,6 +1041,8 @@
     <div class="skills-block">
       <div class="skills-block-title">Software &amp; Tools</div>
       <div class="skill-tags">
+        <span class="skill-tag">Panda ERP</span>
+        <span class="skill-tag">SPSS</span>
         <span class="skill-tag">Microsoft Excel</span>
         <span class="skill-tag">Microsoft Word</span>
         <span class="skill-tag">Microsoft PowerPoint</span>
@@ -811,16 +1085,40 @@
   <div class="contact-heading">Get In Touch</div>
   <div class="contact-links">
     <a href="mailto:zacjnorton@gmail.com">zacjnorton@gmail.com</a>
-    <a href="tel:2522587518">252-258-7518 (US)</a>
-    <a href="tel:+61455444066">+61 455 444 066 (AU)</a>
+    <a href="tel:2522587518">252-258-7518</a>
     <a href="resume.pdf" target="_blank">Resume ↗</a>
     <a href="https://www.linkedin.com/in/zac-norton-5b310421b/" target="_blank">LinkedIn ↗</a>
   </div>
-  <div style="color:var(--muted);font-size:0.85rem;">Greenville, NC · Melbourne, Australia</div>
+  <div style="color:var(--muted);font-size:0.85rem;">Greenville, NC</div>
   <div class="footer-copy">© 2026 Zac Norton. All rights reserved.</div>
 </div>
 
 <script>
+  // Frosted menu bar once the page scrolls
+  var menubar = document.getElementById('menubar');
+  function updateMenubar() { menubar.classList.toggle('scrolled', window.scrollY > 10); }
+  window.addEventListener('scroll', updateMenubar, { passive: true });
+  updateMenubar();
+
+  // Experience fade-in
+  var expItems = document.querySelectorAll('.exp-item');
+  var expTriggered = false;
+  function checkExperience() {
+    if (expTriggered || !expItems[0]) return;
+    var rect = expItems[0].getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.9) {
+      expTriggered = true;
+      expItems.forEach(function(item, i) {
+        setTimeout(function() { item.classList.add('visible'); }, i * 900);
+      });
+      window.removeEventListener('scroll', checkExperience);
+      window.removeEventListener('touchmove', checkExperience);
+    }
+  }
+  window.addEventListener('scroll', checkExperience);
+  window.addEventListener('touchmove', checkExperience);
+  checkExperience();
+
   // Leadership fade-in
   const leadershipItems = document.querySelectorAll('.leadership-item');
   let leadershipTriggered = false;
@@ -830,7 +1128,7 @@
     if (rect.top < window.innerHeight * 0.9) {
       leadershipTriggered = true;
       leadershipItems.forEach(function(item, i) {
-        var gaps = [0, 400, 400, 300, 300, 200, 200, 100, 100];
+        var gaps = [0, 900, 900, 675, 675, 450, 450, 225, 225];
         var delay = gaps.slice(0, i + 1).reduce(function(a, b) { return a + b; }, 0);
         setTimeout(function() { item.classList.add('visible'); }, delay);
       });
@@ -850,7 +1148,7 @@
     if (rect.top < window.innerHeight * 0.9) {
       credTriggered = true;
       credItems.forEach(function(item, i) {
-        var gaps = [0, 400, 400, 300, 300, 200, 200, 100, 100];
+        var gaps = [0, 200, 200, 200, 200, 200, 200, 200, 200];
         var delay = gaps.slice(0, i + 1).reduce(function(a, b) { return a + b; }, 0);
         setTimeout(function() { item.classList.add('visible'); }, delay);
       });
@@ -861,6 +1159,24 @@
   window.addEventListener('scroll', checkCredentials);
   window.addEventListener('touchmove', checkCredentials);
   checkCredentials();
+
+  // Expandable leadership & credential cards
+  document.querySelectorAll('.expandable').forEach(function(card) {
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-expanded', card.classList.contains('open'));
+    function toggle() {
+      var open = card.classList.toggle('open');
+      card.setAttribute('aria-expanded', open);
+    }
+    card.addEventListener('click', function(e) {
+      if (e.target.closest('a') || e.target.closest('figure') || window.getSelection().toString()) return;
+      toggle();
+    });
+    card.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
 
   if (history.scrollRestoration) history.scrollRestoration = 'manual';
   if (window.location.hash) history.replaceState(null, '', window.location.pathname);
