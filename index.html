@@ -132,7 +132,7 @@
       font-size: clamp(0.85rem, 1.5vw, 1rem);
       color: var(--muted);
       line-height: 1.7;
-      max-width: 520px;
+      max-width: 680px;
       animation: heroFadeUp 1s cubic-bezier(0.22,1,0.36,1) 0.2s both;
     }
 
@@ -499,7 +499,27 @@
     .contact-section {
       border-top: 1px solid var(--border);
       text-align: center;
-      padding: 100px 40px 80px;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+      background-image: url('5.jpg');
+      background-size: cover;
+      background-position: center 0%;
+      background-repeat: no-repeat;
+      background-blend-mode: multiply;
+      background-color: var(--bg);
+    }
+    .contact-glass {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 40px 40px;
+      background: rgba(43, 39, 66, 0.45);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      backdrop-filter: blur(16px) saturate(140%);
+      border: 1px solid rgba(143, 235, 213, 0.18);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+      will-change: transform, opacity;
     }
     .contact-heading {
       font-size: clamp(2.5rem, 8vw, 6rem);
@@ -548,7 +568,8 @@
       .exp-photo { max-width: 260px; }
       .leadership-date { white-space: normal; }
       .skills-grid { grid-template-columns: 1fr; }
-      .contact-section { padding: 70px 24px 60px; }
+      .contact-section { padding: 70px 16px 60px; }
+      .contact-glass { padding: 40px 20px 28px; }
     }
   </style>
 </head>
@@ -574,7 +595,7 @@
 <section class="hero">
   <div class="hero-name">Zac Norton</div>
   <div class="hero-sub">
-    Operations &amp; Supply Chain Management student at East Carolina University.<br>
+    Operations &amp; Supply Chain Management student at East&nbsp;Carolina&nbsp;University.<br>
     Most recently a Supply Chain &amp; Logistics Intern at Ford Australia.
   </div>
   <div class="hero-cta">
@@ -600,6 +621,11 @@
       <p>
         Operations and Supply Chain Management student at East Carolina University with a 3.9 GPA.
         Former Division I full-scholarship student-athlete in Track &amp; Cross Country.
+      </p>
+      <p>
+        Growing up in Warrnambool, Australia, and working in Melbourne before moving to the US to study and compete,
+        I bring an international perspective to every team I join. I'm comfortable working with people from different
+        backgrounds and cultures, and I see problems through more than one lens.
       </p>
       <p>
         I'm interested in how businesses move - how supply chains are optimized, and how data-driven
@@ -826,8 +852,8 @@
               <figcaption>ISCM's first meeting of Fall 2026</figcaption>
             </figure>
             <figure class="photo">
-              <img src="photos/iscm-tabling.jpg" width="1050" height="1400" loading="lazy" style="object-position:50% 65%;" alt="ISCM tabling event on the ECU College of Business lawn" />
-              <figcaption>Recruiting at an ISCM tabling event</figcaption>
+              <img src="photos/iscm-handshake.jpg" width="1400" height="933" loading="lazy" style="object-position:45% 50%;" alt="Meeting a student at the ISCM table during a College of Business tabling event" />
+              <figcaption>Meeting students at an ISCM tabling event</figcaption>
             </figure>
           </div>
           <p class="more-links" style="margin-bottom:24px;font-size:0.86rem;"><a class="inline-link" href="https://www.instagram.com/ecu.iscm/" target="_blank" rel="noopener">Instagram: @ecu.iscm ↗</a></p>
@@ -967,16 +993,19 @@
       <a class="inline-link" href="https://www.stafda.org/" target="_blank" rel="noopener">stafda.org ↗</a>
     </div>
     <div class="conf-card">
+      <img class="conf-photo" src="photos/ism-world-2026.jpg" width="1400" height="1050" loading="lazy" alt="ECU students and faculty at ISM World 2026" />
       <div class="conf-when">2026</div>
       <div class="conf-name">ISM World</div>
-      <div class="conf-desc">The Institute for Supply Management's annual conference, one of the largest gatherings of procurement and supply chain professionals. Attended to learn from industry leaders and build connections.</div>
+      <div class="conf-desc">The Institute for Supply Management's annual conference, one of the largest gatherings of procurement and supply chain professionals. Attended with ISCM members and ECU faculty to learn from industry leaders and build connections.</div>
       <a class="inline-link" href="https://www.ismworld.org/" target="_blank" rel="noopener">ismworld.org ↗</a>
     </div>
     <div class="conf-card">
-      <div class="conf-when">ISCM Trips</div>
+      <img class="conf-photo" src="photos/cummins-rocky-mount.jpg" width="1400" height="682" loading="lazy" style="object-position:55% 50%;" alt="Sign at the Cummins Rocky Mount Engine Plant" />
+      <span class="photo-credit" style="margin:-4px 0 4px;">Photo: Cummins Inc.</span>
+      <div class="conf-when">Site Visits</div>
       <div class="conf-name">Industry Site Visits</div>
-      <div class="conf-desc">Organized ISCM trips to see supply chains in action, including the Port of Wilmington and an Amazon facility.</div>
-      <a class="inline-link" href="https://ncports.com/" target="_blank" rel="noopener">NC Ports ↗</a>
+      <div class="conf-desc">Toured the Cummins Rocky Mount Engine Plant in November 2025 to see manufacturing supply chains in action. I've also organized ISCM trips to the Port of Wilmington and an Amazon facility.</div>
+      <div class="more-links"><a class="inline-link" href="https://www.cummins.com/" target="_blank" rel="noopener">Cummins ↗</a><a class="inline-link" href="https://ncports.com/" target="_blank" rel="noopener">NC Ports ↗</a></div>
     </div>
   </div>
 </section>
@@ -1082,6 +1111,7 @@
 
 <!-- CONTACT -->
 <div class="contact-section" id="contact">
+  <div class="contact-glass" id="contactGlass">
   <div class="contact-heading">Get In Touch</div>
   <div class="contact-links">
     <a href="mailto:zacjnorton@gmail.com">zacjnorton@gmail.com</a>
@@ -1091,6 +1121,7 @@
   </div>
   <div style="color:var(--muted);font-size:0.85rem;">Greenville, NC</div>
   <div class="footer-copy">© 2026 Zac Norton. All rights reserved.</div>
+  </div>
 </div>
 
 <script>
@@ -1099,6 +1130,24 @@
   function updateMenubar() { menubar.classList.toggle('scrolled', window.scrollY > 10); }
   window.addEventListener('scroll', updateMenubar, { passive: true });
   updateMenubar();
+
+  // Contact: frosted panel rises and background drifts as you scroll to the bottom
+  var contact = document.getElementById('contact');
+  var contactGlass = document.getElementById('contactGlass');
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function updateContact() {
+    var rect = contact.getBoundingClientRect();
+    var vh = window.innerHeight;
+    // 0 when the section top reaches the bottom of the screen, 1 when the page bottom is reached
+    var p = Math.min(1, Math.max(0, (vh - rect.top) / Math.min(rect.height, vh)));
+    contact.style.backgroundPosition = 'center ' + (p * 100).toFixed(1) + '%';
+    if (reduceMotion) return;
+    contactGlass.style.transform = 'translateY(' + ((1 - p) * 80).toFixed(1) + 'px)';
+    contactGlass.style.opacity = (0.35 + p * 0.65).toFixed(2);
+  }
+  window.addEventListener('scroll', updateContact, { passive: true });
+  window.addEventListener('resize', updateContact);
+  updateContact();
 
   // Experience fade-in
   var expItems = document.querySelectorAll('.exp-item');
