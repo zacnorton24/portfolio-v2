@@ -829,21 +829,9 @@
               </svg>
             </div>
             <div class="stat">
-              <div class="stat-value">147<span>→</span>287</div>
-              <div class="stat-label">Instagram Followers: Aug → Sept 2026</div>
-              <svg class="growth-chart" viewBox="0 0 180 110" role="img" aria-label="Instagram followers grew from 147 in August to 287 in September 2026">
-                <g><title>August 2026: 147 followers</title>
-                  <path class="bar before" d="M30,86 V59.3 Q30,55.3 34,55.3 H70 Q74,55.3 74,59.3 V86 Z" />
-                  <text class="val" x="52" y="49.3">147</text>
-                  <text class="cat" x="52" y="102">Aug</text>
-                </g>
-                <g><title>September 2026: 287 followers</title>
-                  <path class="bar after" d="M106,86 V30 Q106,26 110,26 H146 Q150,26 150,30 V86 Z" />
-                  <text class="val" x="128" y="20">287</text>
-                  <text class="cat" x="128" y="102">Sept</text>
-                </g>
-                <line class="baseline" x1="20" y1="86" x2="160" y2="86" />
-              </svg>
+              <div class="stat-value" id="igHeadline">147<span>→</span>308</div>
+              <div class="stat-label" id="igLabel">Instagram Followers: Aug → Oct 3, 2026</div>
+              <svg class="growth-chart" id="igChart" viewBox="0 0 240 110" role="img" aria-label="Instagram followers"></svg>
             </div>
           </div>
           <div class="card-photos">
@@ -1208,6 +1196,40 @@
   window.addEventListener('scroll', checkCredentials);
   window.addEventListener('touchmove', checkCredentials);
   checkCredentials();
+
+  // ISCM Instagram followers (@ecu.iscm).
+  // To update: add a new line at the end of this list. The headline, label and chart update automatically.
+  var IG_FOLLOWERS = [
+    { label: 'Aug',   full: 'August 2026',     count: 147 },
+    { label: 'Sept',  full: 'September 2026',  count: 287 },
+    { label: 'Oct 3', full: 'October 3, 2026', count: 308 }
+  ];
+
+  function renderFollowerChart(svg, pts) {
+    var n = pts.length, W = 60 * n + 60, base = 86, maxH = 60, bw = 44, r = 4;
+    var max = Math.max.apply(null, pts.map(function(p) { return p.count; }));
+    var slot = (W - 40) / n, html = '';
+    pts.forEach(function(p, i) {
+      var h = p.count / max * maxH, x = 20 + slot * i + (slot - bw) / 2, top = base - h, cx = x + bw / 2;
+      var d = 'M' + x + ',' + base + ' V' + (top + r) + ' Q' + x + ',' + top + ' ' + (x + r) + ',' + top +
+              ' H' + (x + bw - r) + ' Q' + (x + bw) + ',' + top + ' ' + (x + bw) + ',' + (top + r) + ' V' + base + ' Z';
+      html += '<g><title>' + p.full + ': ' + p.count + ' followers</title>' +
+              '<path class="bar ' + (i === n - 1 ? 'after' : 'before') + '" style="transition-delay:' + (i * 0.25) + 's" d="' + d + '" />' +
+              '<text class="val" x="' + cx + '" y="' + (top - 6) + '">' + p.count + '</text>' +
+              '<text class="cat" x="' + cx + '" y="102">' + p.label + '</text></g>';
+    });
+    html += '<line class="baseline" x1="20" y1="86" x2="' + (W - 20) + '" y2="86" />';
+    svg.setAttribute('viewBox', '0 0 ' + W + ' 110');
+    svg.style.width = W + 'px';
+    svg.setAttribute('aria-label', 'Instagram followers: ' + pts.map(function(p) { return p.count + ' in ' + p.full; }).join(', '));
+    svg.innerHTML = html;
+  }
+  (function() {
+    var first = IG_FOLLOWERS[0], last = IG_FOLLOWERS[IG_FOLLOWERS.length - 1];
+    document.getElementById('igHeadline').innerHTML = first.count + '<span>→</span>' + last.count;
+    document.getElementById('igLabel').textContent = 'Instagram Followers: ' + first.label + ' → ' + last.full;
+    renderFollowerChart(document.getElementById('igChart'), IG_FOLLOWERS);
+  })();
 
   // Expandable leadership & credential cards
   document.querySelectorAll('.expandable').forEach(function(card) {
